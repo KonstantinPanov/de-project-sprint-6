@@ -1,0 +1,22 @@
+Добрый день,
+Перед работой над аналитической частью прошу проверить задания с 1 по 6
+
+Не совсем понятно задание 6
+Зачем нужно использовать дополнительный join
+left join STV230547__DWH.l_user_group_activity as luga on hg.hk_group_id = luga.hk_group_id and hu.hk_user_id = luga.hk_user_id
+
+Для ключа hash(luga.hk_group_id, luga.hk_user_id),
+
+•	MY__DWH.h_groups — для связи по хеш-ключу группы данных из MY__DWH.l_user_group_activity;
+•	MY__DWH.h_users — для связи по хэш-ключу пользователя данных из MY__DWH.l_user_group_activity.
+
+
+Вместо 
+select
+hash(hg.hk_group_id, hu.hk_user_id),
+left join STV230547__DWH.h_groups as hg on gl.group_id = hg.group_id
+left join STV230547__DWH.h_users as hu on gl.user_id = hu.user_id
+
+Спасибо
+
+Константин
