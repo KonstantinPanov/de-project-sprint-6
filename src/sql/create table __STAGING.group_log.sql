@@ -4,7 +4,7 @@ CREATE TABLE STV230547__STAGING.group_log
     group_id int NOT NULL,
     user_id int NOT NULL,
     user_id_from int,
-    event varchar(50),
+    event varchar(20),
     "datetime" timestamp
 )
 PARTITION BY ((group_log."datetime")::date) GROUP BY (CASE WHEN ("datediff"('year', (group_log."datetime")::date, ((now())::timestamptz(6))::date) >= 2) THEN (date_trunc('year', (group_log."datetime")::date))::date WHEN ("datediff"('month', (group_log."datetime")::date, ((now())::timestamptz(6))::date) >= 3) THEN (date_trunc('month', (group_log."datetime")::date))::date ELSE (group_log."datetime")::date END);
