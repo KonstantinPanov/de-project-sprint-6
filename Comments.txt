@@ -1,6 +1,4 @@
 Добрый день,
-Перед работой над аналитической частью прошу проверить задания с 1 по 6
-
 Не совсем понятно задание 6
 Зачем нужно использовать дополнительный join
 left join STV230547__DWH.l_user_group_activity as luga on hg.hk_group_id = luga.hk_group_id and hu.hk_user_id = luga.hk_user_id
