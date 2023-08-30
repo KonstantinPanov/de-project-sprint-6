@@ -1,20 +1,24 @@
-Добрый день,
-Не совсем понятно задание 6
-Зачем нужно использовать дополнительный join
-left join STV230547__DWH.l_user_group_activity as luga on hg.hk_group_id = luga.hk_group_id and hu.hk_user_id = luga.hk_user_id
+Кирилл, добрый день!
+Спасибо за комментарии.
 
-Для ключа hash(luga.hk_group_id, luga.hk_user_id),
+download_group_log.py
 
-•	MY__DWH.h_groups — для связи по хеш-ключу группы данных из MY__DWH.l_user_group_activity;
-•	MY__DWH.h_users — для связи по хэш-ключу пользователя данных из MY__DWH.l_user_group_activity.
+1. Добавил в переменные среды python  AWS_ACCESS_KEY_ID и  AWS_SECRET_ACCESS_KEY 
+Для вызова использую модуль   os
+import os
+aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
+aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY")
 
+2. Добавил try-except , проверь пожалуйста
+3. Добавил блок с выводом первых 10 строк для файла group_log.csv
 
-Вместо 
-select
-hash(hg.hk_group_id, hu.hk_user_id),
-left join STV230547__DWH.h_groups as hg on gl.group_id = hg.group_id
-left join STV230547__DWH.h_users as hu on gl.user_id = hu.user_id
+upload_group_log.py
+
+1.	пароли и соединения в коде, добавил в Variables
+
+2. Добавил логирование
+import logging
+logging.info(f"loading rows {start}-{end}")
+logging.info("loaded")
 
 Спасибо
-
-Константин
