@@ -3,7 +3,7 @@ import hashlib
 import json
 from typing import Dict, List, Optional
 
-from airflow import DAG
+from airflow.models import DAG, Variable
 from airflow.operators.python import PythonOperator
 from airflow.operators.empty import EmptyOperator
 
@@ -12,6 +12,7 @@ from airflow.decorators import dag
 import pandas as pd
 import pendulum
 import vertica_python
+import logging
 
 
 def load_dataset_file_to_vertica(
@@ -25,10 +26,10 @@ def load_dataset_file_to_vertica(
     df['user_id_from'] = pd.array(df['user_id_from'], dtype="Int64")
     num_rows = len(df)
     vertica_conn = vertica_python.connect(
-        host='51.250.75.20',
-        port=5433,
-        user='stv230547',
-        password = 'MAoqab1XNUkzV51'
+        host=Variable.get('v_host'),
+        port=Variable.get('v_port'),
+        user=Variable.get('v_user'),
+        password=Variable.get('v_password')
     )
     columns = ', '.join(columns)
     copy_expr = f"""
@@ -44,7 +45,8 @@ def load_dataset_file_to_vertica(
             with open('/tmp/chunk.csv', 'rb') as chunk:
                 cur.copy(copy_expr, chunk, buffer_size=65536)
             vertica_conn.commit()
-            print("loaded")
+            logging.info(f"loading rows {start}-{end}")
+            logging.info("loaded")
             start += chunk_size + 1
 
     vertica_conn.close()
